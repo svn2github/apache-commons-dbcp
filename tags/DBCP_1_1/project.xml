@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<project>
+  <extend>../xdocs/maven/project-base.xml</extend>
+  <name>Commons DBCP</name>
+  <id>commons-dbcp</id>
+  <logo>/images/dbcp-logo-blue.jpg</logo>
+  <url>http://jakarta.apache.org/commons/dbcp/</url>
+  <inceptionYear>2001</inceptionYear>
+  <shortDescription>Commons Database Connection Pooling</shortDescription>
+  <description>Commons Database Connection Pooling</description>
+
+  <currentVersion>1.1</currentVersion>
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>DBCP_1_0</tag>
+    </version>
+    <version>
+      <id>1.1</id>
+      <name>1.1</name>
+      <tag>DBCP_1_1</tag>
+    </version>
+  </versions>
+  <branches>
+  </branches>
+
+  <developers>
+    <developer>
+      <name>Morgan Delagrange</name>
+      <id>morgand</id>
+      <email></email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>Geir Magnusson</name>
+      <id>geirm</id>
+      <email></email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>Craig McClanahan</name>
+      <id>craigmcc</id>
+      <email></email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>John McNally</name>
+      <id>jmcnally</id>
+      <email></email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>Martin Poeschl</name>
+      <id>mpoeschl</id>
+      <email>mpoeschl@marmot.at</email>
+      <organization>tucana.at</organization>
+    </developer>
+    <developer>
+      <name>Rodney Waldhoff</name>
+      <id>rwaldhoff</id>
+      <email></email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>David Weinrich</name>
+      <id>dweinr1</id>
+      <email></email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>Dirk Verbeeck</name>
+      <id>dirkv</id>
+      <email></email>
+      <organization></organization>
+    </developer>
+  </developers>
+  
+  <dependencies>
+    <dependency>
+      <id>commons-collections</id>
+      <version>2.1</version>
+    </dependency>
+    <dependency>
+      <id>commons-pool</id>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <id>jdbc</id>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <id>junit</id>
+      <version>3.8.1</version>
+    </dependency>
+
+    <!-- these two are required by maven -->
+    <dependency><id>xml-apis</id><version>2.0.2</version></dependency><!-- actually dbcp's tests need this too -->
+    <dependency><id>xerces</id><version>2.0.2</version></dependency>
+    <!-- /these two are required by maven -->
+  </dependencies>
+
+  <build>
+    <unitTest>
+      <includes>
+        <include>org/apache/commons/dbcp/TestAll.java</include>
+        <include>org/apache/commons/jocl/TestAll.java</include>
+      </includes>
+      <resources>
+        <resource>
+          <directory>${basedir}/src/test</directory>
+          <includes>
+            <include>testpool.jocl</include>
+          </includes>
+        </resource>
+      </resources>
+    </unitTest>
+  </build>
+</project>

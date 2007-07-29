@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE project [
+<!ENTITY commons-nav SYSTEM "../../incl_nav.xml">
+]>
+
+<project name="Commons - DBCP" href="http://jakarta.apache.org/commons/dbcp/">
+    <title>Commons DBCP</title>
+    <logo href="http://jakarta.apache.org/commons/images/logo.jpg">
+      Jakarta-Commons
+    </logo>
+    <body>
+        <menu name="Commons&#xA0;DBCP">
+            <item name="Overview"                      href="/index.html" />
+            <item name="Configuration"                 href="/configuration.html" />
+            <item name="API&#xA0;Documentation"        href="/apidocs/index.html"/>
+            <item name="Developers&#xA0;Guide"         href="/guide/index.html" collapse="true">
+                <item name="Class&#xA0;Diagrams"       href="/guide/classdiagrams.html"/>
+                <item name="Sequence&#xA0;Diagrams"    href="/guide/sequencediagrams.html"/>
+            </item>
+            <item name="Examples"                      href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons/dbcp/doc/"/>
+            <item name="Downloads"                     href="/downloads.html"/>
+        </menu>
+
+	&commons-nav;
+    </body>
+</project>

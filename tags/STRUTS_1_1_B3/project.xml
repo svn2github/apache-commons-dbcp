@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <extend>../project.xml</extend>
+  <id>commons-dbcp</id>
+  <name>DBCP</name>
+  <currentVersion>1.1-dev</currentVersion>
+  <inceptionYear>2001</inceptionYear>
+  <gumpRepositoryId>jakarta</gumpRepositoryId>
+  <shortDescription>Commons Database Connection Pooling</shortDescription>
+
+  <description>
+    Commons Database Connection Pooling
+  </description>
+  
+  <developers>
+    <developer>
+      <name>Morgan Delagrange</name>
+      <id></id>
+      <email></email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>Geir Magnusson</name>
+      <id></id>
+      <email></email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>Craig McClanahan</name>
+      <id></id>
+      <email></email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>John McNally</name>
+      <id></id>
+      <email></email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>Rodney Waldhoff</name>
+      <id>rwaldhoff</id>
+      <email></email>
+      <organization></organization>
+    </developer>
+    <developer>
+      <name>David Weinrich</name>
+      <id></id>
+      <email></email>
+      <organization></organization>
+    </developer>
+  </developers>
+  
+  <dependencies>
+    
+    <dependency>
+      <id>commons-collections</id>
+      <version>2.0</version>
+    </dependency>
+
+    <dependency>
+      <id>commons-lang</id>
+      <version>1.0-b1</version>
+    </dependency>
+    
+    <dependency>
+      <id>commons-pool</id>
+      <version>1.0</version>
+    </dependency>
+    
+    <dependency>
+      <id>jdbc</id>
+      <version>2.0</version>
+    </dependency>
+  
+    <dependency>
+      <id>xml-apis</id>
+      <version>2.0.2</version>
+    </dependency>
+
+    <dependency>
+      <id>junit</id>
+      <version>3.7</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    
+    <unitTest>
+      <includes>
+        <include>**/TestAll.java</include>
+      </includes>
+    </unitTest>
+
+  </build>
+
+</project>

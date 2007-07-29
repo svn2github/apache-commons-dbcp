@@ -1,0 +1,8 @@
+build.properties
+dist
+.classpath
+.project
+target
+maven.log
+velocity.log
+eclipse_classes
