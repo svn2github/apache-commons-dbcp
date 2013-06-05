@@ -1,0 +1,112 @@
+################################################################################
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+################################################################################
+This document describes the process used to produce DBCP 1.3.x/1.4.x/1.5.x release
+candidates from the common source code maintained in DBCP's DBCP_1_5_x branch.
+
+0.  Prepare and validate changes, testing with JDK 1.4, 1.5, 1.6 and 1.7 using Ant
+    and the code in DBCP_1_5_x. The ant build in DBCP_1_5_x/build.xml should
+    pickup the jdk version and filter sources accordingly.
+
+1.  Change the version numbers in pom.xml, build.xml,
+    pom-1.3.xml, pom-1.4.xml, build-1.3.xml and build-1.4.xml to the
+    new .x version.
+
+2.  Modify the main DBCP web page to include links to the new versions and
+    also modify the download page to include the new versions.
+
+3.  Regenerate RELEASE_NOTES.txt
+    mvn changes:announcement-generate
+    mv target/announcement/dbcp-release-notes.vm RELEASE-NOTES.txt
+    The formatting may need some tweaking. Check RELEASE-Notes.txt
+    in.
+
+4.  Test artifact generation from trunk:
+    mvn -Prc install
+    Inspect the 1.5.x tarballs in /target and the maven artifacts in 
+    your local maven repo.  Fix any problems.
+
+5.  Check in all changes to DBCP_1_5_x; re-run tests.
+
+6.  Now we create branches which will be used to set up the 1.3.x and 1.4.x
+    versions of the code.
+
+    [If necessary, delete any existing such branch first]
+    
+    svn copy -m "Create 1.3.x compatibility release branch." \
+    https://svn.apache.org/repos/asf/commons/proper/dbcp/branches/DBCP_1_5_x \
+    https://svn.apache.org/repos/asf/commons/proper/dbcp/branches/DBCP_1_3_x_BRANCH
+    
+    svn copy -m "Create 1.4.x compatibility release branch." \
+    https://svn.apache.org/repos/asf/commons/proper/dbcp/branches/DBCP_1_5_x \
+    https://svn.apache.org/repos/asf/commons/proper/dbcp/branches/DBCP_1_4_x_BRANCH
+
+7.  Check out the branches into a local workspace:
+
+    svn co https://svn.apache.org/repos/asf/commons/proper/dbcp/branches/DBCP_1_3_x_BRANCH
+    svn co https://svn.apache.org/repos/asf/commons/proper/dbcp/branches/DBCP_1_4_x_BRANCH
+    
+8.  Modify build files in the branches:
+    From DBCP_1_3_x_BRANCH
+    svn rm pom.xml
+    svn rm build.xml
+    svn rm findbugs-exclude-filter.xml
+    svn mv build-1.3.xml build.xml
+    svn mv pom-1.3.xml pom.xml
+    
+    From DBCP_1_4_x_BRANCH
+    svn rm pom.xml
+    svn rm build.xml
+    svn rm findbugs-exclude-filter.xml
+    svn mv build-1.4.xml build.xml
+    svn mv pom-1.4.xml pom.xml
+
+9.  Filter the sources in the compatibility branches
+    From DBCP_1_3_x_BRANCH, using JDK 1.4 or 1.5
+    cp build.properties.sample build.properties (make sure all referenced jars exist)
+    ant filter-sources
+    ant clean test
+    mvn clean site
+    svn commit -m "Filtered sources to remove JDBC 4+ methods."
+    
+    From DBCP_1_4_x_BRANCH, using JDK 1.6
+    cp build.properties.sample build.properties (make sure all referenced jars exist)
+    ant filter-sources
+    ant clean test
+    mvn clean site
+    svn commit -m "Filtered sources to remove JDBC 4.1 methods."
+
+10. Create release tags:
+
+    svn cp -m "Tagging 1.3.x RCy" \
+        https://svn.apache.org/repos/asf/commons/proper/dbcp/branches/DBCP_1_3_x_BRANCH \
+        https://svn.apache.org/repos/asf/commons/proper/dbcp/tags/DBCP_1_3_x_RCy
+    (where x is dot level, y is RC number)
+    svn cp -m "Tagging 1.4.x RCy" \
+        https://svn.apache.org/repos/asf/commons/proper/dbcp/branches/DBCP_1_4_x_BRANCH \
+        https://svn.apache.org/repos/asf/commons/proper/dbcp/tags/DBCP_1_4_x_RCy
+    svn cp -m "Tagging 1.5.x RCy" \
+        https://svn.apache.org/repos/asf/commons/proper/dbcp/branches/DBCP_1_5_x_BRANCH \
+        https://svn.apache.org/repos/asf/commons/proper/dbcp/tags/DBCP_1_5_x_RCy
+
+11. Create RC artifacts:
+
+    From a fresh checkout of the DBCP_1_5_x_RCy tag, using JDK 1.7 execute
+    mvn -Prc install
+    
+    From a fresh checkout of the DBCP_1_4_x_RCy tag using JDK 1.6,
+    mvn -Prc install
+    
+    From a fresh checkout of the DBCP_1_3_x_RCy tag using JDK 1.5,
+    mvn -Prc install   
+    
+
+12. Collect the maven released artifacts from the 1.3.x/1.4.x/1.5.x dbcp directories
+    in your local repo and the tarballs/zips from the /target directories in the branches.
+
